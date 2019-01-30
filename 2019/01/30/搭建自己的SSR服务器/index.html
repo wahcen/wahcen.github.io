@@ -1,106 +1,106 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
+
+
+
+
+
+
+
+
+
+
 <head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="utf-8">
-  
-
-  
-  <title>搭建自己的SSR服务器 | wahcen的博客</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="作为新时代的新青年，时不时就需要“自由探索”一下互联网，寻找“学习资料”，在开始搭建“梯子”寻找“学习资料”前，我们需要准备以下内容   连接到服务器的软件putty或xshell(自行百度) 购买服务器，推荐vultr，除此之外还有搬瓦工，亚马逊等国外服务器提供商 shadowsocksR的windows客户端 一个不厌其烦的你   一、购买服务器 登陆vultr官网，在Email Addres">
-<meta property="og:type" content="article">
-<meta property="og:title" content="搭建自己的SSR服务器">
-<meta property="og:url" content="http://yoursite.com/2019/01/30/搭建自己的SSR服务器/index.html">
-<meta property="og:site_name" content="wahcen的博客">
-<meta property="og:description" content="作为新时代的新青年，时不时就需要“自由探索”一下互联网，寻找“学习资料”，在开始搭建“梯子”寻找“学习资料”前，我们需要准备以下内容   连接到服务器的软件putty或xshell(自行百度) 购买服务器，推荐vultr，除此之外还有搬瓦工，亚马逊等国外服务器提供商 shadowsocksR的windows客户端 一个不厌其烦的你   一、购买服务器 登陆vultr官网，在Email Addres">
-<meta property="og:locale" content="default">
-<meta property="og:image" content="https://i.loli.net/2019/01/30/5c512016c3b59.png">
-<meta property="og:image" content="https://i.loli.net/2019/01/30/5c512016eb437.png">
-<meta property="og:image" content="https://i.loli.net/2019/01/30/5c51201702c75.png">
-<meta property="og:image" content="https://i.loli.net/2019/01/30/5c512016ac0e8.png">
-<meta property="og:image" content="https://i.loli.net/2019/01/30/5c512016b4948.png">
-<meta property="og:image" content="https://i.loli.net/2019/01/30/5c512016b11fa.png">
-<meta property="og:image" content="https://i.loli.net/2019/01/30/5c5120172b4bc.jpg">
-<meta property="og:image" content="https://i.loli.net/2019/01/30/5c51201733aa4.jpg">
-<meta property="og:image" content="https://i.loli.net/2019/01/30/5c51225f9f589.png">
-<meta property="og:updated_time" content="2019-01-30T06:51:40.250Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="搭建自己的SSR服务器">
-<meta name="twitter:description" content="作为新时代的新青年，时不时就需要“自由探索”一下互联网，寻找“学习资料”，在开始搭建“梯子”寻找“学习资料”前，我们需要准备以下内容   连接到服务器的软件putty或xshell(自行百度) 购买服务器，推荐vultr，除此之外还有搬瓦工，亚马逊等国外服务器提供商 shadowsocksR的windows客户端 一个不厌其烦的你   一、购买服务器 登陆vultr官网，在Email Addres">
-<meta name="twitter:image" content="https://i.loli.net/2019/01/30/5c512016c3b59.png">
-  
-    <link rel="alternate" href="/atom.xml" title="wahcen的博客" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/css/style.css">
+    <meta charset="utf-8">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" href="/icesword.ico">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no" name="viewport">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="description" content="">
+    <meta name="author" content="wahcen">
+    <meta name="keywords" content="">
+    <title>搭建自己的SSR服务器 ~ wahcen的博客</title>
+    <link rel="stylesheet" href="/css/Material_Icons.css">
+    <!-- <link rel="stylesheet" href="/css/font-awesome.css"> -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+    
+        <link rel="stylesheet" href="/css/post.css">
+        
+            <link rel="stylesheet" href="/css/Prettify/tomorrow-night-eighties.min.css">
+        
+    
 </head>
-</html>
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">wahcen的博客</a>
-      </h1>
-      
-        <h2 id="subtitle-wrap">
-          <a href="/" id="subtitle">better late than never</a>
-        </h2>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
-      </div>
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main"><article id="post-搭建自己的SSR服务器" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/01/30/搭建自己的SSR服务器/" class="article-date">
-  <time datetime="2019-01-30T06:45:10.000Z" itemprop="datePublished">2019-01-30</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      搭建自己的SSR服务器
-    </h1>
-  
 
-      </header>
+<body class=" sidebar-collapse">
+<nav class="navbar navbar-transparent navbar-color-on-scroll fixed-top navbar-expand-lg" color-on-scroll="100" id="sectionsNav">
+    <div class="container">
+        <div class="navbar-translate">
+            <a class="navbar-brand" href="/">
+                wahcen的博客</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="navbar-toggler-icon"></span>
+                <span class="navbar-toggler-icon"></span>
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ml-auto">
+                    
+                        
+                            <li class="nav-item">
+                                <a class="nav-link" href="/archives/">
+                                    archives
+                                </a>
+                            </li>
+                        
+                            <li class="nav-item">
+                                <a class="nav-link" href="/about/">
+                                    about
+                                </a>
+                            </li>
+                        
+                    
+                    
+                        
+                            <li class="nav-item">
+                                <a class="nav-link" rel="tooltip" title="" data-placement="bottom" href="https://github.com/wahcen" target="_blank" data-original-title="找到你了！面码">
+                                    <i class="fa fa-github"></i>
+                                </a>
+                            </li>
+                        
+                            <li class="nav-item">
+                                <a class="nav-link" rel="tooltip" title="" data-placement="bottom" href="https://twitter.com/" target="_blank" data-original-title="找到你了！面码">
+                                    <i class="fa fa-twitter"></i>
+                                </a>
+                            </li>
+                        
+                    
+                </ul>
+            </div>
+    </div>
+</nav>
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>作为新时代的新青年，时不时就需要“自由探索”一下互联网，寻找“学习资料”，在开始搭建“梯子”寻找“学习资料”前，我们需要准备以下内容</p>
+  <div class="page-header header-filter" data-parallax="true" style="background-image: url('/img/灵刀-冰昊天.jpg'); height: 70vh;">
+    
+      <div class="container">
+        <h1 class="title text-center post_title">搭建自己的SSR服务器</h1>
+        <p class="text-center"><b>Wednesday, January 30th 2019, 2:45 pm</b></p>
+      </div>
+    
+  </div>
+
+  
+  
+  
+    <div class="row" style="margin: 0 0 0; z-index: 999;">
+  <div class="col-md-8 offset-md-1">
+    <div class="main main-raised">
+      <div class="container">
+        <div class="section">
+          <div class="post_content">
+              <p>作为新时代的新青年，时不时就需要“自由探索”一下互联网，寻找“学习资料”，在开始搭建“梯子”寻找“学习资料”前，我们需要准备以下内容</p>
 <blockquote>
 <ul>
 <li>连接到服务器的软件<strong>putty或xshell</strong>(自行百度)</li>
@@ -134,107 +134,90 @@
 <p>接下来就可以自由地查找<strong>“学习资料”</strong>了。</p>
 <h3 id="备注"><a href="#备注" class="headerlink" title="备注"></a>备注</h3><p>本文仅用作学习交流，切勿用作违反中华人民共和国法律的行为。</p>
 
-      
+          </div>
+          <br><br>
+          <div>
+              <p>
+                      
+              </p>
+          </div>
+        </div>
+      </div>  
     </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/01/30/搭建自己的SSR服务器/" data-id="cjrj34mw50002akv3fluuo4x0" class="article-share-link">Share</a>
-      
-      
-    </footer>
   </div>
+  <!-- TOC -->
   
-    
-<nav id="article-nav">
-  
-    <a href="/2019/01/30/hello-world/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          Hello World
-        
+      <div class="">
+        <div id="toc">
+          <p class="toc-title"><i class="material-icons" style="vertical-align:middle">toc</i>Toc:</p> 
+          <div id="tocbot"></div>
+        </div>
       </div>
-    </a>
   
-  
-</nav>
+</div>
 
-  
-</article>
 
-</section>
+<!-- Comments -->
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+    
         
-          <aside id="sidebar">
-  
+            <div class="disqus" style="width:100%">
+    <div id="disqus_thread"></div>
+    <script>               
+        var disqus_shortname = '';
+        var disqus_config = function () {
+            this.page.url = 'http://yoursite.com/2019/01/30/搭建自己的SSR服务器/'; 
+            this.page.identifier = '/2019/01/30/搭建自己的SSR服务器/';
+        };
+        (function() { 
+            var d = document, s = d.createElement('script');
+            s.type = 'text/javascript';
+            s.src = '//'+disqus_shortname+'.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>                                
+</div>
+        
     
-
-  
-    
-
-  
-    
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li></ul>
     </div>
-  </div>
-
-
+</div>
   
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2019/01/30/hello-world/">Hello World</a>
-          </li>
-        
-          <li>
-            <a href="/2019/01/30/搭建自己的SSR服务器/">搭建自己的SSR服务器</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
 
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2019 wahcen<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
+<footer class="footer footer-default">
+        <div class="container">
+          <div class="float-left" style="padding: 15px 0;">
+              <b>老年disco我们普通地摇</b>
+          </div>
+          <div class="copyright float-right">
+            &copy;
+            <script>
+              document.write(new Date().getFullYear())
+            </script>&nbsp;<a href="https://hexo.io/zh-cn/" target="_blank">HEXO</a>&nbsp;<i class="material-icons">favorite_border</i>
+            <a href="https://github.com/invom/Material-T" target="_blank">Material-T</a>
+          </div>
+        </div>
 </footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
-
-
-<script src="/js/script.js"></script>
-
-
-
-  </div>
+      <!--   Core JS Files   -->
+      <script src="/js/core/jquery.min.js?v=3.2.1"></script>
+      <script src="/js/main.js"></script>
+      <script src="/js/core/popper.min.js"></script>
+      <script src="/js/core/bootstrap-material-design.min.js"></script>
+      <script src="/js/plugins/moment.min.js"></script>
+      <!-- Control Center for Material Kit: parallax effects, scripts for the example pages etc -->
+      <script src="/js/material-kit.min.js?v=2.0.5"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+        <script src="/js/post.js"></script>
+        <script src="/js/plugins/prettify.js"></script>
+        <script>
+            $(document).ready(function(){
+                $('pre').addClass('prettyprint linenums');
+                prettyPrint();
+            })
+        </script>
+      
 </body>
 </html>
