@@ -113,40 +113,96 @@
 <h2 id="1-安装git"><a href="#1-安装git" class="headerlink" title="1. 安装git"></a>1. 安装git</h2><p> <strong>Windows平台</strong>: 直接在<a href="https://git-scm.com/" target="_blank" rel="noopener">git官网</a>下载binary版本的安装包安装即可，不需要把git添加至环境变量中，使用gitbash代替cmd，安装过程中要求选择编辑器 ，选择第一个vim即可，不想用了可以更改，只要指定编辑器的位置即可。</p>
 <p><strong>linux平台</strong>:使用各发行版的包管理命令安装即可,例如ubuntu可以使用apt命令 ：<code>$ sudo apt-get install git</code>安装时会提示输入root的密码，安装完成后即可在终端中使用git命令了。</p>
 <h2 id="2-配置git"><a href="#2-配置git" class="headerlink" title="2. 配置git"></a>2. 配置git</h2><h4 id="2-1-初始化git"><a href="#2-1-初始化git" class="headerlink" title="2.1 初始化git"></a>2.1 初始化git</h4><p>Windows平台下在开始菜单里找到gitbash打开，在弹出的终端中输入(linux直接在终端中设置即可)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global user.name &quot;你的用户名&quot; </span><br><span class="line">$ git config --global user.email &quot;你的邮件地址&quot;</span><br></pre></td></tr></table></figure>
-<p>若没有设置用户名和邮件地址，后面git不允许<strong>commit</strong>，并且会提示上例代码进行设置。</p>
+<pre><code>$ git config --global user.name &quot;你的用户名&quot; 
+$ git config --global user.email &quot;你的邮件地址&quot;
+</code></pre><p>若没有设置用户名和邮件地址，后面git不允许<strong>commit</strong>，并且会提示上例代码进行设置。</p>
 <p>除此之外，你还可以直接打开config文件修改设置，一个具体方法是在终端输入</p>
 <p><code>$ git config --global --edit</code></p>
 <p>就可以通过安装时指定的文本编辑器打开配置文件，其中 <strong><em>[user]</em></strong>标签下方的name和email就是你设置的用户名和邮件地址。</p>
 <h4 id="2-2-设置快捷命令"><a href="#2-2-设置快捷命令" class="headerlink" title="*2.2 设置快捷命令"></a>*2.2 设置快捷命令</h4><p>接着上一节打开的config文档，在下方空白处新建<strong><em>[alias]</em></strong>标签，在下方填入</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ci = commit</span><br><span class="line">co = checkout</span><br><span class="line">st = status</span><br><span class="line">br = branch</span><br><span class="line">unstage = reset HEAD</span><br></pre></td></tr></table></figure>
-<p>等式左边的缩写代表等式右边的命令，在终端输入命令时就可以使用这些缩写形式代替右边列出的命令。举个例子：git commit -m “message”的效果和git ci -m “message”的效果是相同的。也可以根据自己的喜好以以上格式添加快捷命令</p>
+<pre><code>ci = commit
+co = checkout
+st = status
+br = branch
+unstage = reset HEAD
+</code></pre><p>等式左边的缩写代表等式右边的命令，在终端输入命令时就可以使用这些缩写形式代替右边列出的命令。举个例子：git commit -m “message”的效果和git ci -m “message”的效果是相同的。也可以根据自己的喜好以以上格式添加快捷命令</p>
 <h4 id="2-3-手动指定文本编辑器"><a href="#2-3-手动指定文本编辑器" class="headerlink" title="*2.3 手动指定文本编辑器"></a>*2.3 手动指定文本编辑器</h4><p>接着2.1节打开的config文档，在下方空白处新建<strong><em>[core]</em></strong>标签，在下方填入</p>
 <p><code>editor = &#39;directory&#39;</code></p>
 <p>其中的directory应替换为你所指定的编辑器的绝对位置(具体目录)。例如，笔者在C盘的program files文件夹里安装了notepad++编辑器，那么文档中是这样的：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">editor = &apos;C:\\Program Files (x86)\\Notepad++\\notepad++.exe&apos; -multiInst -notabbar -nosession -noPlugin</span><br></pre></td></tr></table></figure>
-<h4 id="2-4-添加-gitignore文件"><a href="#2-4-添加-gitignore文件" class="headerlink" title="*2.4 添加.gitignore文件"></a>*2.4 添加.gitignore文件</h4><p>可以从github官方的<strong><em>.gitignore</em></strong>库中clone到本地，以在推送时忽略一些不需要的文件类型，比如visual studio默认生成的项目依赖文件<code>*.sln</code></p>
+<pre><code>editor = &#39;C:\\Program Files (x86)\\Notepad++\\notepad++.exe&#39; -multiInst -notabbar -nosession -noPlugin 
+</code></pre><h4 id="2-4-添加-gitignore文件"><a href="#2-4-添加-gitignore文件" class="headerlink" title="*2.4 添加.gitignore文件"></a>*2.4 添加.gitignore文件</h4><p>可以从github官方的<strong><em>.gitignore</em></strong>库中clone到本地，以在推送时忽略一些不需要的文件类型，比如visual studio默认生成的项目依赖文件<code>*.sln</code></p>
 <h2 id="3-helloworld"><a href="#3-helloworld" class="headerlink" title="3. helloworld"></a>3. helloworld</h2><p><strong>Windows平台：</strong>到桌面右键选择git bash here，在弹出的终端中输入，Linux直接在终端操作即可</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir hellogit #在桌面创建文件夹hellogit</span><br><span class="line">$ git init hellogit #初始化hellogit文件夹为git存储库</span><br><span class="line">$ touch helloworld.txt #在hellogit文件夹中创建helloworld.txt文件</span><br><span class="line">$ notepad helloworld.txt #用windows自带的记事本打开</span><br></pre></td></tr></table></figure>
-<p>在打开的文件中随意输入想写的内容，按ctrl+s保存，退出,接下来在终端中输入</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ cd hellogit #加载到hellogit文件夹</span><br><span class="line">$ git add ./ #将当前文件夹的所有内容送至暂存区</span><br><span class="line">$ git status #查看存储库中文件状态，包括新增、删除以及修改</span><br><span class="line">$ git commit -m &quot;initialize of git repo&quot; #将更改提交到master分支，-m &quot;提交信息&quot;不可缺少</span><br><span class="line">$ git log #查看提交历史</span><br></pre></td></tr></table></figure>
-<p>至此，你已经完成了本地创建git存储库并提交更改的所有内容</p>
+<pre><code>$ mkdir hellogit #在桌面创建文件夹hellogit
+$ git init hellogit #初始化hellogit文件夹为git存储库
+$ touch helloworld.txt #在hellogit文件夹中创建helloworld.txt文件
+$ notepad helloworld.txt #用windows自带的记事本打开
+</code></pre><p>在打开的文件中随意输入想写的内容，按ctrl+s保存，退出,接下来在终端中输入</p>
+<pre><code>$ cd hellogit #加载到hellogit文件夹
+$ git add ./ #将当前文件夹的所有内容送至暂存区
+$ git status #查看存储库中文件状态，包括新增、删除以及修改
+$ git commit -m &quot;initialize of git repo&quot; #将更改提交到master分支，-m &quot;提交信息&quot;不可缺少
+$ git log #查看提交历史
+</code></pre><p>至此，你已经完成了本地创建git存储库并提交更改的所有内容</p>
 <h2 id="4-关联到Github"><a href="#4-关联到Github" class="headerlink" title="4. 关联到Github"></a>4. 关联到Github</h2><p><strong>4.1创建SSH Key</strong></p>
 <p>在终端输入</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh-keygen -t rsa -C &quot;youremail@example.com&quot; #在用户目录下生成ssh密钥</span><br></pre></td></tr></table></figure>
-<p>在C:\用户\你的用户名目录中找到<code>.ssh</code>目录，里面有<code>id_rsa</code>和<code>id_rsa.pub</code>两个文件，这两个就是SSH Key的秘钥对，<code>id_rsa</code>是私钥，不能泄露出去，<code>id_rsa.pub</code>是公钥，可以放心地告诉任何人。</p>
+<pre><code>$ ssh-keygen -t rsa -C &quot;youremail@example.com&quot; #在用户目录下生成ssh密钥
+</code></pre><p>在C:\用户\你的用户名目录中找到<code>.ssh</code>目录，里面有<code>id_rsa</code>和<code>id_rsa.pub</code>两个文件，这两个就是SSH Key的秘钥对，<code>id_rsa</code>是私钥，不能泄露出去，<code>id_rsa.pub</code>是公钥，可以放心地告诉任何人。</p>
 <p><strong>4.2在github中添加ssh key</strong></p>
 <p>登陆GitHub，打开“Account settings”，“SSH Keys”页面，然后，点“Add SSH Key”，标题随意设置，在Key文本框里粘贴<code>id_rsa.pub</code>文件的内容，点“Add Key”，应该就能看到</p>
 <p><strong>4.3在github新建存储库</strong></p>
 <p>点击右上角加号，选择new repository，在接下来页面中在repository name中输入hellogit（可以勾选Initialize this repository with a README，来直接新建一个叫README的说明文档），点击Create repository，远程存储库就新建完成了</p>
 <p><strong>4.4将本地库推送到github</strong></p>
 <p>在终端中输入</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git remote add origin git@github.com:你的用户名/hellogit.git #关联到远端存储库</span><br><span class="line">$ git push -u origin master #第一次提交加上-u参数，即：将本地master分支推送到远程</span><br></pre></td></tr></table></figure>
-<p>第一次使用git clone或者git push命令时会出现ssh key警告，输入yes即可</p>
+<pre><code>$ git remote add origin git@github.com:你的用户名/hellogit.git #关联到远端存储库
+$ git push -u origin master #第一次提交加上-u参数，即：将本地master分支推送到远程
+</code></pre><p>第一次使用git clone或者git push命令时会出现ssh key警告，输入yes即可</p>
 <p>对本地更改后需要依次add、commit -m “”再次提交时只需要输入 git push origin master即可</p>
 <p><strong>备注：以上操作均在master分支完成</strong></p>
-<h2 id="5-常用命令总结"><a href="#5-常用命令总结" class="headerlink" title="5. 常用命令总结"></a>5. 常用命令总结</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">init			初始化	ps:在文件夹处右击运行git bash输入git init以初始化</span><br><span class="line">	&lt;directory&gt;		在指定位置创建空仓库</span><br><span class="line">	--bare			创建空仓库</span><br><span class="line">	</span><br><span class="line">clone			克隆	ps:输入git clone &lt;repo&gt;&lt;directory&gt;将repo克隆至directory</span><br><span class="line">	&lt;repo&gt;			将repo仓库克隆到本地</span><br><span class="line">	&lt;repo&gt;&lt;directory&gt;		将repo仓库克隆至directory</span><br><span class="line">	</span><br><span class="line">config			配置	</span><br><span class="line"></span><br><span class="line">add				添加   ps:将存储库中的更改加入暂存区</span><br><span class="line"></span><br><span class="line">commit -m &quot;&quot;	提交	 ps:提交更改后的文件</span><br><span class="line"></span><br><span class="line">status			数据	 ps:查看当前工作目录的文件新增、删除、修改状态</span><br><span class="line"></span><br><span class="line">log				日志	 ps:查看过去commit的记录 添加--graph以查看分支图</span><br><span class="line"></span><br><span class="line">reset 			重置</span><br><span class="line">	--hard &lt;pointer&gt;  ps:恢复到过去的commit版本，可以用reflog命令查询commit记录</span><br><span class="line">	HEAD &lt;file&gt;		  ps:丢弃暂存区的更改</span><br><span class="line">	</span><br><span class="line">push			推送	ps:可以把当前分支推送，也可以以 origin &lt;branchname&gt;的方式将其他分支推送</span><br><span class="line"></span><br><span class="line">pull			拉取	ps:从远程库拉取内容</span><br><span class="line"></span><br><span class="line">diff HEAD		判断	ps:比较暂存区(stage)与Master(HEAD指针指向)分支的差别</span><br><span class="line"></span><br><span class="line">checkout 		切换	</span><br><span class="line">	&lt;branch_name&gt;	 ps:切换分支</span><br><span class="line">	-- file		撤销	ps:撤销在工作区中的某一个文件的修改 “--”不可缺少</span><br><span class="line">	</span><br><span class="line">branch			分支	ps:查看当前分支，创建新分支</span><br><span class="line">	-d&lt;branch&gt;		 ps:删除指定的分支</span><br><span class="line">	</span><br><span class="line">merge			合并	ps:合并分支到当前分支</span><br><span class="line"></span><br><span class="line">tag				标签	ps:为某一个分支打上标签，常打版本号v1.0等</span><br><span class="line"></span><br><span class="line">show			标签	ps:比如show &lt;tagname&gt;能展示被打上tag的分支的commit信息</span><br><span class="line"></span><br><span class="line">要关联一个远程库，使用命令git remote add origin git@server-name:path/repo-name.git；</span><br><span class="line">关联后，使用命令git push -u origin master第一次推送master分支的所有内容；</span><br><span class="line">此后，每次本地提交后，只要有必要，就可以使用命令git push origin master推送最新修改；</span><br></pre></td></tr></table></figure>
-<h2 id="备注："><a href="#备注：" class="headerlink" title="备注："></a>备注：</h2><p>git命令复习</p>
+<h2 id="5-常用命令总结"><a href="#5-常用命令总结" class="headerlink" title="5. 常用命令总结"></a>5. 常用命令总结</h2><pre><code>init            初始化    ps:在文件夹处右击运行git bash输入git init以初始化
+    &lt;directory&gt;        在指定位置创建空仓库
+    --bare            创建空仓库
+
+clone            克隆    ps:输入git clone &lt;repo&gt;&lt;directory&gt;将repo克隆至directory
+    &lt;repo&gt;            将repo仓库克隆到本地
+    &lt;repo&gt;&lt;directory&gt;        将repo仓库克隆至directory
+
+config            配置    
+
+add                添加   ps:将存储库中的更改加入暂存区
+
+commit -m &quot;&quot;    提交     ps:提交更改后的文件
+
+status            数据     ps:查看当前工作目录的文件新增、删除、修改状态
+
+log                日志     ps:查看过去commit的记录 添加--graph以查看分支图
+
+reset             重置
+    --hard &lt;pointer&gt;  ps:恢复到过去的commit版本，可以用reflog命令查询commit记录
+    HEAD &lt;file&gt;          ps:丢弃暂存区的更改
+
+push            推送    ps:可以把当前分支推送，也可以以 origin &lt;branchname&gt;的方式将其他分支推送
+
+pull            拉取    ps:从远程库拉取内容
+
+diff HEAD        判断    ps:比较暂存区(stage)与Master(HEAD指针指向)分支的差别
+
+checkout         切换    
+    &lt;branch_name&gt;     ps:切换分支
+    -- file        撤销    ps:撤销在工作区中的某一个文件的修改 “--”不可缺少
+
+branch            分支    ps:查看当前分支，创建新分支
+    -d&lt;branch&gt;         ps:删除指定的分支
+
+merge            合并    ps:合并分支到当前分支
+
+tag                标签    ps:为某一个分支打上标签，常打版本号v1.0等
+
+show            标签    ps:比如show &lt;tagname&gt;能展示被打上tag的分支的commit信息
+
+要关联一个远程库，使用命令git remote add origin git@server-name:path/repo-name.git；
+关联后，使用命令git push -u origin master第一次推送master分支的所有内容；
+此后，每次本地提交后，只要有必要，就可以使用命令git push origin master推送最新修改；
+</code></pre><h2 id="备注："><a href="#备注：" class="headerlink" title="备注："></a>备注：</h2><p>git命令复习</p>
 
           </div>
           <br><br>
