@@ -19,7 +19,7 @@
     <meta name="description" content="">
     <meta name="author" content="wahcen">
     <meta name="keywords" content="">
-    <title>搭建自己的SSR服务器 ~ wahcen的博客</title>
+    <title>SSR服务器搭建 ~ wahcen的博客</title>
     <link rel="stylesheet" href="/css/Material_Icons.css">
     <!-- <link rel="stylesheet" href="/css/font-awesome.css"> -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
@@ -85,7 +85,7 @@
   <div class="page-header header-filter" data-parallax="true" style="background-image: url('/img/灵刀-冰昊天.jpg'); height: 70vh;">
     
       <div class="container">
-        <h1 class="title text-center post_title">搭建自己的SSR服务器</h1>
+        <h1 class="title text-center post_title">SSR服务器搭建</h1>
         <p class="text-center"><b>Wednesday, January 30th 2019, 2:45 pm</b></p>
       </div>
     
@@ -100,39 +100,36 @@
       <div class="container">
         <div class="section">
           <div class="post_content">
-              <p>作为新时代的新青年，时不时就需要“自由探索”一下互联网，寻找“学习资料”，在开始搭建“梯子”寻找“学习资料”前，我们需要准备以下内容</p>
+              <p>开始搭建SSR服务器前，需要准备以下内容</p>
 <blockquote>
 <ul>
 <li>连接到服务器的软件<strong>putty或xshell</strong>(自行百度)</li>
 <li>购买服务器，推荐<a href="https://www.vultr.com/" target="_blank" rel="noopener">vultr</a>，除此之外还有<a href="https://bwh8.net/" target="_blank" rel="noopener">搬瓦工</a>，亚马逊等国外服务器提供商</li>
-<li><strong>shadowsocksR</strong>的windows客户端</li>
-<li>一个不厌其烦的<strong>你</strong></li>
+<li><strong>shadowsocksR</strong>的客户端</li>
 </ul>
 </blockquote>
-<p><strong>一、购买服务器</strong></p>
-<p>登陆vultr官网，在Email Address栏中填入你要注册并使用的邮箱账号，在Password栏中填入你要设置的登陆密码。收到验证邮件并验证后，点击网页右上角的log in进入登陆界面输入账号密码登陆后可以看到以下内容。这个界面是充值界面，货币为美元，可以使用<strong>支付宝Alipay</strong>和<strong>微信Wechat Pay</strong>支付。</p>
+<h2 id="1-购买服务器"><a href="#1-购买服务器" class="headerlink" title="1. 购买服务器"></a>1. 购买服务器</h2><p>登陆vultr官网，在Email Address栏中填入你要注册并使用的邮箱账号，在Password栏中填入你要设置的登陆密码。收到验证邮件并验证后，点击网页右上角的log in进入登陆界面输入账号密码登陆后可以看到以下内容。这个界面是充值界面，货币为美元，可以使用<strong>支付宝Alipay</strong>和<strong>微信Wechat Pay</strong>支付。</p>
 <p><img src="https://i.loli.net/2019/01/30/5c512016c3b59.png" alt="2"></p>
 <p>支付完成后，点击左侧菜单上的<strong>Servers</strong>，这就是可以租用的服务器列表</p>
 <p><img src="https://i.loli.net/2019/01/30/5c512016eb437.png" alt="3"></p>
-<p>服务器的价格从每月<strong>2.5美刀</strong>至几百美刀不等，服务器尽量选择亚洲的，如上图可以选择<strong>新加坡</strong>，不建议选择东京的服务器，被墙率很高。系统选择第一个CentOS 7 x64，套餐可以选择<strong>3.5刀或5刀</strong>的(使用ipv4协议,2.5刀的只支持ipv6)，3.5刀已经包含了<strong>500G</strong>月流量，对于笔者这种平时只查查“资料”的已经完全够用了。    其余设置保持默认，点击<strong>deploy now</strong>（立即部署）即可。</p>
+<p>服务器的价格从每月<strong>2.5美刀</strong>至几百美刀不等，服务器尽量选择亚洲的，如上图可以选择<strong>新加坡</strong>，不建议选择东京的服务器。系统选择第一个CentOS 7 x64，套餐可以选择<strong>3.5刀或5刀</strong>的(使用ipv4协议,2.5刀的只有ipv6)，3.5刀已经包含了<strong>500G</strong>月流量。其余设置保持默认，点击<strong>deploy now</strong>（立即部署）即可。</p>
 <p><img src="https://i.loli.net/2019/01/30/5c51201702c75.png" alt="4"></p>
-<p><strong>二、使用putty或者xshell连接到服务器</strong></p>
-<p>点击部署后，稍等一小会，等待服务器安装完成，然后就可以直接点击它进行管理<img src="https://i.loli.net/2019/01/30/5c512016ac0e8.png" alt="5"></p>
-<p>在使用putty或者xshell前，可以先使用cmd，<strong>ping</strong>一下你的服务器，如果不能ping通，请删除已经部署的服务器(八成被墙了)，如图点击红框即可复制服务器ip地址及其密码。</p>
+<h2 id="2-使用putty或者xshell连接到服务器"><a href="#2-使用putty或者xshell连接到服务器" class="headerlink" title="2. 使用putty或者xshell连接到服务器"></a>2. 使用putty或者xshell连接到服务器</h2><p>点击部署后，稍等一小会，等待服务器安装完成，然后就可以直接点击它进行管理<img src="https://i.loli.net/2019/01/30/5c512016ac0e8.png" alt="5"></p>
+<p>在使用putty或者xshell前，可以先在cmd中<strong>ping</strong>一下你的服务器ip<code>ping ip_adress #例如ping 127.0.0.1</code>，如果ping的结果为超时，请删除已经部署的服务器，重新选择其他服务器后再次尝试ping，成功ping通就可以点击图中的红框圈主的部分复制服务器ip地址及其root密码。</p>
 <p><img src="https://i.loli.net/2019/01/30/5c512016b4948.png" alt="12"></p>
-<p>运行xshell,在框中输入服务器的ip地址，端口默认为22，点击确定。</p>
+<p>运行xshell,在新建会话窗口中输入服务器的ip地址，端口默认为22，点击确定。</p>
 <p><img src="https://i.loli.net/2019/01/30/5c512016b11fa.png" alt="10"></p>
 <p>在弹出的终端中输入<strong>root</strong>点击确定，在弹出的密码框中输入刚刚复制的密码即可连接到服务器，若弹出SSH密钥之类的接受即可。</p>
 <p><img src="https://i.loli.net/2019/01/30/5c5120172b4bc.jpg" alt="9"></p>
-<p>在终端粘贴以下代码，即可开始安装<strong>shadowsocksR</strong>,接下来按照提示一路安装即可</p>
-<p><code>wget --no-check-certificate https://freed.ga/github/shadowsocksR.sh; bash shadowsocksR.sh</code></p>
-<p>如下图，shadowsocksR已经在服务器端配置完成，接下来就可以导入配置到ssr客户端</p>
+<h2 id="3-部署服务器SSR客户端"><a href="#3-部署服务器SSR客户端" class="headerlink" title="3. 部署服务器SSR客户端"></a>3. 部署服务器SSR客户端</h2><p>在终端粘贴以下代码，即可开始安装<strong>shadowsocksR</strong>,接下来按照提示一路安装即可</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget --no-check-certificate https://freed.ga/github/shadowsocksR.sh; bash shadowsocksR.sh #一键部署脚本，来自freed.ga</span><br></pre></td></tr></table></figure>
+<p>如图，shadowsocksR已经在服务器端配置完成，接下来就可以导入配置到ssr客户端</p>
 <p><img src="https://i.loli.net/2019/01/30/5c51201733aa4.jpg" alt="13"></p>
-<p><strong>三、SSR客户端配置</strong></p>
-<p>在SSR客户端中对照自己的服务器的配置添加服务器，点击确定然后切换至该服务器即可</p>
-<p><img src="https://i.loli.net/2019/01/30/5c51225f9f589.png" alt="14"></p>
-<p>接下来就可以自由地查找<strong>“学习资料”</strong>了。</p>
-<h3 id="备注"><a href="#备注" class="headerlink" title="备注"></a>备注</h3><p>本文仅用作学习交流，切勿用作违反中华人民共和国法律的行为。</p>
+<h2 id="4-免费SSR节点分享站点"><a href="#4-免费SSR节点分享站点" class="headerlink" title="4.免费SSR节点分享站点"></a>4.免费SSR节点分享站点</h2><p><a href="https://www.ssrshare.com/" target="_blank" rel="noopener">ssrshare.com</a> SSRshare论坛，开放注册，受美国法律保护</p>
+<p><a href="https://www.ssrtool.com/tool/free_ssr" target="_blank" rel="noopener">ssrtool.com</a> SSRshare论坛的分享平台，访问前应将其设置入pac文件中</p>
+<p>ssrtool的安卓端小工具：</p>
+<p><img src="https://i.tuku.pw/1901/139009066fe89aef.png" alt="ssr小工具"></p>
+<h3 id="备注"><a href="#备注" class="headerlink" title="备注"></a>备注</h3><p>SSR工具应用</p>
 
           </div>
           <br><br>
