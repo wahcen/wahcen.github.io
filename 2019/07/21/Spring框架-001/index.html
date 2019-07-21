@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+
+
+
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" href="/icesword.ico">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no" name="viewport">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="description" content="">
+    <meta name="author" content="wahcen">
+    <meta name="keywords" content="">
+    <title>wahcen的博客</title>
+    <link rel="stylesheet" href="/css/Material_Icons.css">
+    <!-- <link rel="stylesheet" href="/css/font-awesome.css"> -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+    
+        <link rel="stylesheet" href="/css/post.css">
+        
+            <link rel="stylesheet" href="/css/Prettify/tomorrow-night-eighties.min.css">
+        
+    
+</head>
+
+<body class=" sidebar-collapse">
+<nav class="navbar navbar-transparent navbar-color-on-scroll fixed-top navbar-expand-lg" color-on-scroll="100" id="sectionsNav">
+    <div class="container">
+        <div class="navbar-translate">
+            <a class="navbar-brand" href="/">
+                wahcen的博客</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="navbar-toggler-icon"></span>
+                <span class="navbar-toggler-icon"></span>
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ml-auto">
+                    
+                        
+                            <li class="nav-item">
+                                <a class="nav-link" href="/archives/">
+                                    archives
+                                </a>
+                            </li>
+                        
+                            <li class="nav-item">
+                                <a class="nav-link" href="/about/">
+                                    about
+                                </a>
+                            </li>
+                        
+                    
+                    
+                        
+                            <li class="nav-item">
+                                <a class="nav-link" rel="tooltip" title="" data-placement="bottom" href="https://github.com/wahcen" target="_blank" data-original-title="poi~">
+                                    <i class="fa fa-github"></i>
+                                </a>
+                            </li>
+                        
+                            <li class="nav-item">
+                                <a class="nav-link" rel="tooltip" title="" data-placement="bottom" href="https://twitter.com/" target="_blank" data-original-title="poi~">
+                                    <i class="fa fa-twitter"></i>
+                                </a>
+                            </li>
+                        
+                    
+                </ul>
+            </div>
+    </div>
+</nav>
+    
+  <div class="page-header header-filter" data-parallax="true" style="background-image: url('/img/灵刀-冰昊天.jpg'); height: 70vh;">
+    
+      <div class="container">
+        <h1 class="title text-center post_title"></h1>
+        <p class="text-center"><b>Sunday, July 21st 2019, 11:31 pm</b></p>
+      </div>
+    
+  </div>
+
+  
+  
+  
+    <div class="row" style="margin: 0 0 0; z-index: 999;">
+  <div class="col-md-8 offset-md-1">
+    <div class="main main-raised">
+      <div class="container">
+        <div class="section">
+          <div class="post_content">
+              <h1 id="Spring框架-helloworld"><a href="#Spring框架-helloworld" class="headerlink" title="Spring框架-helloworld"></a>Spring框架-helloworld</h1><h3 id="一、spring基本概念"><a href="#一、spring基本概念" class="headerlink" title="一、spring基本概念"></a>一、spring基本概念</h3><ol>
+<li><p>IoC 控制反转</p>
+</li>
+<li><p>DI 依赖注入</p>
+</li>
+<li><p>AOP 面向切面编程</p>
+</li>
+</ol>
+<h3 id="二-、spring组成"><a href="#二-、spring组成" class="headerlink" title="二 、spring组成"></a>二 、spring组成</h3><p>1.数据访问集成</p>
+<pre><code>jdbc、orm、transaction、jms、oxm等
+</code></pre><p>2.Web</p>
+<pre><code>Web、WebSocket、Servlet、Portlet等
+</code></pre><p>3.Core Container</p>
+<pre><code>Beans、Core、Context、SpEL等
+</code></pre><p>4.其他</p>
+<pre><code>AOP、Aspects、Instruments、Messaging等
+</code></pre><h3 id="三、使用注解形式的demo项目"><a href="#三、使用注解形式的demo项目" class="headerlink" title="三、使用注解形式的demo项目"></a>三、使用注解形式的demo项目</h3><pre><code class="java">package hello;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+/**
+ * 打印机
+ */
+@Component
+public class MessagePrinter {
+
+    public MessagePrinter() {
+        super();
+        System.out.println(&quot;MessagePrinter Created...&quot;);
+    }
+
+    /**
+     * 建立MessageService的关联关系
+     */
+    private MessageService service;
+
+    /**
+     * 设置service的值
+     * Autowired注解会自动向该类注入关联的对象，本例中使用无参构造器
+     * @param service
+     */
+    @Autowired
+    public void setService(MessageService service) {
+        this.service = service;
+    }
+
+    public void printMessage(){
+        System.out.println(this.service.getMessage());
+    }
+}
+</code></pre>
+<pre><code class="java">package hello;
+
+import org.springframework.stereotype.Component;
+
+/**
+ * 打印输出操作
+ */
+@Component
+public class MessageService {
+
+    public MessageService() {
+        super();
+        System.out.println(&quot;MessageService Created...&quot;);
+    }
+
+    /**
+     * 执行打印功能
+     * @return
+     */
+    public String getMessage(){
+        return &quot;hello world&quot;;
+    }
+}
+</code></pre>
+<p><strong>用于测试的主类</strong></p>
+<pre><code>其中被注释的代码块是未使用ComponentScan注释，需要手动new对象并完成对象之间关系的关联
+</code></pre><pre><code class="java">package hello;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
+
+/**
+ * Component扫描,基于注解方式初始化spring容器
+ */
+@ComponentScan
+public class ApplicationSpring {
+    public static void main(String[] args) {
+        System.out.println(&quot;applucationSpring&quot;);
+//        //创建打印机对象
+//        MessagePrinter printer = new MessagePrinter();
+//        //创建消息服务对象
+//        MessageService service = new MessageService();
+//        //设置打印机对象的service属性
+//        printer.setService(service);
+//        //打印消息
+//        printer.printMessage();
+
+        //初始化spring容器，标注Component的类会被spring容器自动创建（本例中是无参构造器）
+        ApplicationContext context = new AnnotationConfigApplicationContext(ApplicationSpring.class);
+        //从spring容器中获取对象MessagePrinter
+        MessagePrinter printer = context.getBean(MessagePrinter.class);
+        //从spring容器中获取对象Message Service
+//        MessageService service = context.getBean(MessageService.class);
+
+        System.out.println(printer);
+//        System.out.println(service);
+
+        //再次调用printer中的printMessage方法
+//        printer.setService(service);
+        printer.printMessage();
+
+
+    }
+}
+</code></pre>
+
+          </div>
+          <br><br>
+          <div>
+              <p>
+                      
+              </p>
+          </div>
+        </div>
+      </div>  
+    </div>
+  </div>
+  <!-- TOC -->
+  
+      <div class="">
+        <div id="toc">
+          <p class="toc-title"><i class="material-icons" style="vertical-align:middle">toc</i>Toc:</p> 
+          <div id="tocbot"></div>
+        </div>
+      </div>
+  
+</div>
+
+
+<!-- Comments -->
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+    
+        
+            <div class="disqus" style="width:100%">
+    <div id="disqus_thread"></div>
+    <script>               
+        var disqus_shortname = 'wahcen';
+        var disqus_config = function () {
+            this.page.url = 'http://yoursite.com/2019/07/21/Spring框架-001/'; 
+            this.page.identifier = '/2019/07/21/Spring框架-001/';
+        };
+        (function() { 
+            var d = document, s = d.createElement('script');
+            s.type = 'text/javascript';
+            s.src = '//'+disqus_shortname+'.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>                                
+</div>
+        
+    
+    </div>
+</div>
+  
+
+<footer class="footer footer-default">
+        <div class="container">
+          <div class="float-left" style="padding: 15px 0;">
+              <b>老年disco我们普通地摇</b>
+          </div>
+          <div class="copyright float-right">
+            &copy;
+            <script>
+              document.write(new Date().getFullYear())
+            </script>&nbsp;<a href="https://hexo.io/zh-cn/" target="_blank">HEXO</a>&nbsp;<i class="material-icons">favorite_border</i>
+            <a href="https://github.com/invom/Material-T" target="_blank">Material-T</a>
+          </div>
+        </div>
+</footer>
+      <!--   Core JS Files   -->
+      <script src="/js/core/jquery.min.js?v=3.2.1"></script>
+      <script src="/js/main.js"></script>
+      <script src="/js/core/popper.min.js"></script>
+      <script src="/js/core/bootstrap-material-design.min.js"></script>
+      <script src="/js/plugins/moment.min.js"></script>
+      <!-- Control Center for Material Kit: parallax effects, scripts for the example pages etc -->
+      <script src="/js/material-kit.min.js?v=2.0.5"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+        <script src="/js/post.js"></script>
+        <script src="/js/plugins/prettify.js"></script>
+        <script>
+            $(document).ready(function(){
+                $('pre').addClass('prettyprint linenums');
+                prettyPrint();
+            })
+        </script>
+      
+</body>
+</html>
