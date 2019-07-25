@@ -116,8 +116,8 @@
 </li>
 </ul>
 <hr>
-<h3 id="二、Autowired注解"><a href="#二、Autowired注解" class="headerlink" title="二、Autowired注解"></a>二、Autowired注解</h3><pre><code>@Autowired自动依赖注入
-</code></pre><blockquote>
+<h3 id="二、Autowired注解"><a href="#二、Autowired注解" class="headerlink" title="二、Autowired注解"></a>二、Autowired注解</h3><p>@Autowired自动依赖注入</p>
+<blockquote>
 <p>1.用在构造函数上 <strong>效率最高</strong></p>
 <p>2.用在成员变量上 <strong>最方便</strong></p>
 <p>3.用在setter函数上</p>
@@ -148,10 +148,8 @@ class UpperClass {
 </code></pre>
 <p>required属性表示注入的对象是可选的，在spring自动注入时，被标注为Autowired的类若不存在会报错无法创建bean对象，可以设置Autowired(required=false)，则spring容器会根据类是否存在进行注入，因此，函数一般需要添加是否为null的检查</p>
 <hr>
-<h3 id="三、Primary与Qualifier注解"><a href="#三、Primary与Qualifier注解" class="headerlink" title="三、Primary与Qualifier注解"></a>三、Primary与Qualifier注解</h3><pre><code>Primary用于当一个接口有多个实现类时，标注优先使用的实现类，防止产生歧义，Primary注解对于多个实现类只能有一个
-
-然而，这样的管理方式效率低下，每次测试都必须修改Primary注解位置，使用标识符Qualifier可以有效解决这一问题，在同一个接口的每一个实现类上添加Qualifier(&quot;example&quot;)注解，在测试单元中只需修改测试对象的Qualifier就可以指定使用哪一种实现类
-</code></pre><pre><code class="java">@RunWith(SpringJUnit4ClassRunner.class)
+<h3 id="三、Primary与Qualifier注解"><a href="#三、Primary与Qualifier注解" class="headerlink" title="三、Primary与Qualifier注解"></a>三、Primary与Qualifier注解</h3><p>Primary用于当一个接口有多个实现类时，标注优先使用的实现类，防止产生歧义，Primary注解对于多个实现类只能有一个 然而，这样的管理方式效率低下，每次测试都必须修改Primary注解位置，使用标识符Qualifier可以有效解决这一问题，在同一个接口的每一个实现类上添加Qualifier(“example”)注解，在测试单元中只需修改测试对象的Qualifier就可以指定使用哪一种实现类</p>
+<pre><code class="java">@RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = AppConfig.class)
 public class UserServiceTest {
 
