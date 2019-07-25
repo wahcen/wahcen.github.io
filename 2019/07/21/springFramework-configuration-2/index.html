@@ -19,7 +19,7 @@
     <meta name="description" content="">
     <meta name="author" content="wahcen">
     <meta name="keywords" content="">
-    <title>springFramework-configuration_2 ~ wahcen的博客</title>
+    <title>springFramework-configuration-2 ~ wahcen的博客</title>
     <link rel="stylesheet" href="/css/Material_Icons.css">
     <!-- <link rel="stylesheet" href="/css/font-awesome.css"> -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
@@ -85,7 +85,7 @@
   <div class="page-header header-filter" data-parallax="true" style="background-image: url('/img/灵刀-冰昊天.jpg'); height: 70vh;">
     
       <div class="container">
-        <h1 class="title text-center post_title">springFramework-configuration_2</h1>
+        <h1 class="title text-center post_title">springFramework-configuration-2</h1>
         <p class="text-center"><b>Sunday, July 21st 2019, 11:43 pm</b></p>
       </div>
     
@@ -119,18 +119,18 @@ log4j.appender.file.layout.ConversionPattern=%d{ABSOLUTE} %5p %c{1}:%L - %m%n
 log4j.rootLogger=debug, stdout
 </code></pre>
 <h3 id="三、引入junit单元测试支持"><a href="#三、引入junit单元测试支持" class="headerlink" title="三、引入junit单元测试支持"></a>三、引入junit单元测试支持</h3><pre><code>若使用maven管理项目则直接在pom.xml中添加junit依赖即可，否则需要自己导入所需要的jar包
-</code></pre><pre><code class="java">
-
-            junit
-            junit
-            4.12
-
-
-
-
-            org.springframework
-            spring-test
-            5.1.8.RELEASE
+</code></pre><pre><code class="java">&lt;!-- 添加junit 单元测试依赖--&gt;
+ &lt;dependency&gt;
+ &lt;groupId&gt;junit&lt;/groupId&gt;
+ &lt;artifactId&gt;junit&lt;/artifactId&gt;
+ &lt;version&gt;4.12&lt;/version&gt;
+ &lt;/dependency&gt;
+&lt;!-- 添加spring-test依赖 --&gt;
+ &lt;dependency&gt;
+ &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+ &lt;artifactId&gt;spring-test&lt;/artifactId&gt;
+ &lt;version&gt;5.1.8.RELEASE&lt;/version&gt;
+ &lt;/dependency&gt;
 </code></pre>
 <p>导入后即可在test文件夹下新建测试类，仅需在需要测试的方法上添加@Test注解即可run该方法</p>
 

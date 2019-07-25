@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+
+
+
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" href="/icesword.ico">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no" name="viewport">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="description" content="">
+    <meta name="author" content="wahcen">
+    <meta name="keywords" content="">
+    <title>springFramework-assembly-4 ~ wahcen的博客</title>
+    <link rel="stylesheet" href="/css/Material_Icons.css">
+    <!-- <link rel="stylesheet" href="/css/font-awesome.css"> -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+    
+        <link rel="stylesheet" href="/css/post.css">
+        
+            <link rel="stylesheet" href="/css/Prettify/tomorrow-night-eighties.min.css">
+        
+    
+</head>
+
+<body class=" sidebar-collapse">
+<nav class="navbar navbar-transparent navbar-color-on-scroll fixed-top navbar-expand-lg" color-on-scroll="100" id="sectionsNav">
+    <div class="container">
+        <div class="navbar-translate">
+            <a class="navbar-brand" href="/">
+                wahcen的博客</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="navbar-toggler-icon"></span>
+                <span class="navbar-toggler-icon"></span>
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ml-auto">
+                    
+                        
+                            <li class="nav-item">
+                                <a class="nav-link" href="/archives/">
+                                    archives
+                                </a>
+                            </li>
+                        
+                            <li class="nav-item">
+                                <a class="nav-link" href="/about/">
+                                    about
+                                </a>
+                            </li>
+                        
+                    
+                    
+                        
+                            <li class="nav-item">
+                                <a class="nav-link" rel="tooltip" title="" data-placement="bottom" href="https://github.com/wahcen" target="_blank" data-original-title="poi~">
+                                    <i class="fa fa-github"></i>
+                                </a>
+                            </li>
+                        
+                            <li class="nav-item">
+                                <a class="nav-link" rel="tooltip" title="" data-placement="bottom" href="https://twitter.com/" target="_blank" data-original-title="poi~">
+                                    <i class="fa fa-twitter"></i>
+                                </a>
+                            </li>
+                        
+                    
+                </ul>
+            </div>
+    </div>
+</nav>
+    
+  <div class="page-header header-filter" data-parallax="true" style="background-image: url('/img/灵刀-冰昊天.jpg'); height: 70vh;">
+    
+      <div class="container">
+        <h1 class="title text-center post_title">springFramework-assembly-4</h1>
+        <p class="text-center"><b>Thursday, July 25th 2019, 11:21 pm</b></p>
+      </div>
+    
+  </div>
+
+  
+  
+  
+    <div class="row" style="margin: 0 0 0; z-index: 999;">
+  <div class="col-md-8 offset-md-1">
+    <div class="main main-raised">
+      <div class="container">
+        <div class="section">
+          <div class="post_content">
+              <h1 id="Spring框架-手动装配"><a href="#Spring框架-手动装配" class="headerlink" title="Spring框架-手动装配"></a>Spring框架-手动装配</h1><pre><code>尽管spring注解能够实现类与类之间关系的自动管理，但是当引入第三方的代码甚至是已经打包的jar包时就需要进行手动配置了。
+</code></pre><hr>
+<h3 id="一、JavaConfig类装配方式"><a href="#一、JavaConfig类装配方式" class="headerlink" title="一、JavaConfig类装配方式"></a>一、JavaConfig类装配方式</h3><p>以javaConfig方式配置的spring项目只需要在项目中实现配置类即可</p>
+<pre><code class="java">package me.ace.edu.demo.config;
+
+import me.ace.edu.demo.dao.Impl.UserDaoCache;
+import me.ace.edu.demo.dao.Impl.UserDaoImpl;
+import me.ace.edu.demo.dao.UserDao;
+import me.ace.edu.demo.service.Impl.UserServiceImpl;
+import me.ace.edu.demo.service.UserService;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+
+/*
+    javaConfig方式配置spring
+ */
+@Configuration
+//@ComponentScan![5d39c409b503992409](https://i.loli.net/2019/07/25/5d39c409b503992409.jpg)
+public class AppConfig {
+
+    @Bean
+    @Scope(&quot;singleton&quot;)
+    @Lazy //延迟加载，只在需求时创建对象
+    //@Scope(&quot;prototype&quot;) 作用域，多实例bean，每加载一次创建一个新对象
+
+    @Qualifier(&quot;impl&quot;)
+    //标注了@Bean的函数会拦截所有其他对该函数的调用，该对象是单例的
+    public UserDao userDaoImpl(){
+        System.out.println(&quot;创建UserDao Impl对象&quot;);
+        return new UserDaoImpl();
+    }
+
+    @Bean(&quot;cache&quot;)
+//    @Qualifier(&quot;cache&quot;)
+//    @Primary
+    //标注了@Bean的函数会拦截所有其他对该函数的调用，该对象是单例的
+    public UserDao userDaoCache(){
+        System.out.println(&quot;创建UserDao Cache对象&quot;);
+        return new UserDaoCache();
+    }
+
+    @Bean
+    //解决userDao注入歧义性，有三种方式
+    /*
+        Primary：设置默认bean
+        Qualifier：为每一个bean设置标识名
+        Bean()：设置beanID，若不设置beanID，则默认为方法名
+     */
+    public UserService userServiceImpl(@Qualifier(&quot;impl&quot;) UserDao userDao){
+        System.out.println(&quot;创建UserService对象&quot;);
+//        UserDao userDao = userDaoImpl();
+//        return new UserServiceImpl(userDao);
+        UserServiceImpl userService = new UserServiceImpl();
+        userService.setUserDao(userDao);
+        return userService;
+    }
+}
+</code></pre>
+<p><img src="https://i.loli.net/2019/07/25/5d39c48da594774639.jpg" alt="5d39c48da594774639"></p>
+<hr>
+<h3 id="二、XML文件装配方式"><a href="#二、XML文件装配方式" class="headerlink" title="二、XML文件装配方式"></a>二、XML文件装配方式</h3><p>这种方式装配bean比较麻烦，要注意的是注入时list、set、map等集合对象的注入方法，示例 如下：</p>
+<pre><code class="java">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+ xmlns:c=&quot;http://www.springframework.org/schema/c&quot;
+ xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:util=&quot;http://www.springframework.org/schema/util&quot;
+ xmlns:p=&quot;http://www.springframework.org/schema/p&quot;
+ xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util https://www.springframework.org/schema/util/spring-util.xsd&quot;&gt;
+ &lt;!-- 使用util命名空间与p命名空间简化装配代码 --&gt;
+ &lt;util:list id=&quot;tags&quot;&gt;
+ &lt;value&gt;霉霉&lt;/value&gt;
+ &lt;value&gt;欧美&lt;/value&gt;
+ &lt;value&gt;流行&lt;/value&gt;
+ &lt;/util:list&gt;
+ &lt;bean id=&quot;music1&quot; class=&quot;me.ace.edu.demo.Music&quot; p:tags-ref=&quot;tags&quot;&gt;
+ &lt;!-- 属性注入，利用setter函数注入数据 --&gt;
+ &lt;!-- 注入集合元素的方式相同 --&gt;
+ &lt;property name=&quot;title&quot; value=&quot;Out Of Woods&quot;/&gt;
+ &lt;property name=&quot;duration&quot; value=&quot;170&quot;/&gt;
+ &lt;/bean&gt;
+ &lt;bean id=&quot;music2&quot; class=&quot;me.ace.edu.demo.Music&quot;&gt;
+ &lt;!-- 属性注入，利用setter函数注入数据 --&gt;
+ &lt;!-- 注入集合元素的方式相同 --&gt;
+ &lt;property name=&quot;title&quot; value=&quot;Welcome to NewYork&quot;/&gt;
+ &lt;property name=&quot;duration&quot; value=&quot;170&quot;/&gt;
+ &lt;property name=&quot;tags&quot;&gt;
+ &lt;list&gt;
+ &lt;value&gt;霉霉&lt;/value&gt;
+ &lt;value&gt;欧美&lt;/value&gt;
+ &lt;value&gt;流行&lt;/value&gt;
+ &lt;/list&gt;
+ &lt;/property&gt;
+ &lt;/bean&gt;
+ &lt;bean id=&quot;music3&quot; class=&quot;me.ace.edu.demo.Music&quot;&gt;
+ &lt;!-- 属性注入，利用setter函数注入数据 --&gt;
+ &lt;!-- 注入集合元素的方式相同 --&gt;
+ &lt;property name=&quot;title&quot; value=&quot;Style&quot;/&gt;
+ &lt;property name=&quot;duration&quot; value=&quot;170&quot;/&gt;
+ &lt;property name=&quot;tags&quot;&gt;
+ &lt;list&gt;
+ &lt;value&gt;霉霉&lt;/value&gt;
+ &lt;value&gt;欧美&lt;/value&gt;
+ &lt;value&gt;流行&lt;/value&gt;
+ &lt;/list&gt;
+ &lt;/property&gt;
+ &lt;/bean&gt;
+ &lt;bean id=&quot;music4&quot; class=&quot;me.ace.edu.demo.Music&quot;&gt;
+ &lt;!-- 属性注入，利用setter函数注入数据 --&gt;
+ &lt;!-- 注入集合元素的方式相同 --&gt;
+ &lt;property name=&quot;title&quot; value=&quot;Blank Space&quot;/&gt;
+ &lt;property name=&quot;duration&quot; value=&quot;170&quot;/&gt;
+ &lt;property name=&quot;tags&quot;&gt;
+ &lt;list&gt;
+ &lt;value&gt;霉霉&lt;/value&gt;
+ &lt;value&gt;欧美&lt;/value&gt;
+ &lt;value&gt;流行&lt;/value&gt;
+ &lt;/list&gt;
+ &lt;/property&gt;
+ &lt;/bean&gt;
+ &lt;!-- name标签可以定义多个别名，而id只能有一个 --&gt;
+ &lt;bean name=&quot;cd1;cdx&quot; class=&quot;me.ace.edu.demo.CompactDisc&quot;&gt;
+ &lt;constructor-arg name=&quot;title&quot; value=&quot;1989&quot;&gt;&lt;/constructor-arg&gt;
+ &lt;constructor-arg name=&quot;artist&quot; value=&quot;Taylor Swift&quot;&gt;&lt;/constructor-arg&gt;
+ &lt;!-- 构造函数依赖注入，注入list对象 --&gt;
+ &lt;constructor-arg name=&quot;tracks&quot;&gt;
+&lt;!-- &lt;list&gt;--&gt;
+&lt;!-- &lt;value&gt;Welcome to NewYork&lt;/value&gt;--&gt;
+&lt;!-- &lt;value&gt;Blank Space&lt;/value&gt;--&gt;
+&lt;!-- &lt;value&gt;Style&lt;/value&gt;--&gt;
+&lt;!-- &lt;value&gt;Out Of Woods&lt;/value&gt;--&gt;
+&lt;!-- &lt;/list&gt;--&gt;
+ &lt;!--
+ &lt;map&gt;
+ &lt;entry key=&quot;1&quot; value-ref=&quot;music1&quot;&gt;
+ &lt;/map&gt;
+ --&gt;
+ &lt;list&gt;
+ &lt;ref bean=&quot;music1&quot;/&gt;
+ &lt;ref bean=&quot;music2&quot;/&gt;
+ &lt;ref bean=&quot;music3&quot;/&gt;
+ &lt;ref bean=&quot;music4&quot;/&gt;
+ &lt;/list&gt;
+ &lt;/constructor-arg&gt;
+ &lt;/bean&gt;
+ &lt;bean id=&quot;cd2&quot; class=&quot;me.ace.edu.demo.CompactDisc&quot;/&gt;
+ &lt;bean id=&quot;CDPlayer1&quot; class=&quot;me.ace.edu.demo.CDPlayer&quot;&gt;
+ &lt;!-- 构造函数依赖注入 --&gt;
+ &lt;constructor-arg ref=&quot;cd1&quot;/&gt;
+ &lt;/bean&gt;
+ &lt;!-- c命名空间 --&gt;
+ &lt;bean id=&quot;CDPlayer2&quot; class=&quot;me.ace.edu.demo.CDPlayer&quot; c:cd-ref=&quot;cd2&quot;/&gt;
+&lt;/beans&gt;
+</code></pre>
+<h3 id="三、对象的创建与销毁"><a href="#三、对象的创建与销毁" class="headerlink" title="三、对象的创建与销毁"></a>三、对象的创建与销毁</h3><p><strong>第一种方式：</strong>只需要在bean对象中声明init,destroy方法，并在xml文件中bean节点中声明init-method=”init”或者destroy-method=”destroy”，那么在context初始化或销毁的时候也会同时调用被声明的对象的初始化/销毁方法</p>
+<p><strong>第二种方式：</strong>在bean对象的初始化或者销毁方法上添加@PostConstruct / @PreDestroy注解</p>
+<p><strong>第三种方式：</strong>在JavaConfig装配方式同第二种方式</p>
+<pre><code class="java">@Component
+class Demo {
+    @PostInit
+    public void init(){};
+    @
+    public void destroy(){};
+}
+</code></pre>
+<p>Author : Wahcen</p>
+<p><img src="https://i.loli.net/2019/07/25/5d39c7f82c02e95974.jpg" alt="5d39c7f82c02e95974"></p>
+
+          </div>
+          <br><br>
+          <div>
+              <p>
+                       
+                      <span class="badge badge-default">#&nbsp;spring</span>
+                      &nbsp;
+                      
+              </p>
+          </div>
+        </div>
+      </div>  
+    </div>
+  </div>
+  <!-- TOC -->
+  
+      <div class="">
+        <div id="toc">
+          <p class="toc-title"><i class="material-icons" style="vertical-align:middle">toc</i>Toc:</p> 
+          <div id="tocbot"></div>
+        </div>
+      </div>
+  
+</div>
+
+
+<!-- Comments -->
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+    
+        
+            <div class="disqus" style="width:100%">
+    <div id="disqus_thread"></div>
+    <script>               
+        var disqus_shortname = 'wahcen';
+        var disqus_config = function () {
+            this.page.url = 'http://yoursite.com/2019/07/25/springFramework-assembly-4/'; 
+            this.page.identifier = '/2019/07/25/springFramework-assembly-4/';
+        };
+        (function() { 
+            var d = document, s = d.createElement('script');
+            s.type = 'text/javascript';
+            s.src = '//'+disqus_shortname+'.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>                                
+</div>
+        
+    
+    </div>
+</div>
+  
+
+<footer class="footer footer-default">
+        <div class="container">
+          <div class="float-left" style="padding: 15px 0;">
+              <b>老年disco我们普通地摇</b>
+          </div>
+          <div class="copyright float-right">
+            &copy;
+            <script>
+              document.write(new Date().getFullYear())
+            </script>&nbsp;<a href="https://hexo.io/zh-cn/" target="_blank">HEXO</a>&nbsp;<i class="material-icons">favorite_border</i>
+            <a href="https://github.com/invom/Material-T" target="_blank">Material-T</a>
+          </div>
+        </div>
+</footer>
+      <!--   Core JS Files   -->
+      <script src="/js/core/jquery.min.js?v=3.2.1"></script>
+      <script src="/js/main.js"></script>
+      <script src="/js/core/popper.min.js"></script>
+      <script src="/js/core/bootstrap-material-design.min.js"></script>
+      <script src="/js/plugins/moment.min.js"></script>
+      <!-- Control Center for Material Kit: parallax effects, scripts for the example pages etc -->
+      <script src="/js/material-kit.min.js?v=2.0.5"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+        <script src="/js/post.js"></script>
+        <script src="/js/plugins/prettify.js"></script>
+        <script>
+            $(document).ready(function(){
+                $('pre').addClass('prettyprint linenums');
+                prettyPrint();
+            })
+        </script>
+      
+</body>
+</html>
